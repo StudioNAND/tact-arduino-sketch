@@ -22,7 +22,7 @@
  * http://www.instructables.com/id/Touche-for-Arduino-Advanced-touch-sensing/
  */
  
-void serialEvent (const byte inByte) {
+void serialEvent (byte inByte) {
   
   switch (inByte) {
     case '\n':
@@ -43,6 +43,7 @@ void serialEvent (const byte inByte) {
         cmdBuffer[cmdIndex] = cmdBuffer[cmdIndex] * 10 + (int) (inByte - 48);
       // If in range from A-Z or a-z
       } else if ( inByte > 64 && inByte < 123 ) {
+        
         // check if inByte in lowercase range (97-122)
         if( inByte > 96) {
           // transform to uppercase
