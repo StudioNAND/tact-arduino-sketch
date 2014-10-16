@@ -37,7 +37,7 @@ for humans:
        
 Arduino response:
 	
-	1024\n
+	1025\n
 	1089\n
 	1099\n
 	451\n
@@ -45,7 +45,7 @@ Arduino response:
 	
 Stop babbeling, Arduino! What does this even mean?
 
-	1024 - 1023 = Sensor ID 1
+	1025 - 1024 = Sensor ID 1
 	1089 - 1088 = Data Type 1 = Peak
 	1099 - 1098 = 1 value to be transmitted
 	451         = value 451
