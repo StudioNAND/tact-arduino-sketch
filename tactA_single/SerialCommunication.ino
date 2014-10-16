@@ -41,12 +41,18 @@ void serialEvent (const byte inByte) {
       // update existing int value
       if (inByte > 47 && inByte < 58) {
         cmdBuffer[cmdIndex] = cmdBuffer[cmdIndex] * 10 + (int) (inByte - 48);
-      // If in range from A-Z
-      }else if (inByte > 64 && inByte < 91) {
+      // If in range from A-Z or a-z
+      } else if ( inByte > 64 && inByte < 123 ) {
+        // check if inByte in lowercase range (97-122)
+        if( inByte > 96) {
+          // transform to uppercase
+          inByte -= 32;
+        }
+
         // Set command key/name.
         cmdKey = inByte;
         
-        if (inByte == 'V' || inByte == 'P' || inByte == 'B') {
+        if (inByte == 'S' || inByte == 'P' || inByte == 'B') {
           state = STATE_RECEIVE_CMD;
         }
         
@@ -57,7 +63,7 @@ void serialEvent (const byte inByte) {
         cmdBuffer[1] = 0;
         cmdBuffer[2] = 0;
         cmdBuffer[3] = 0;
-      }else{
+      } else{
         // ERROR - unexpected token in parameter stream
       }
       break;
