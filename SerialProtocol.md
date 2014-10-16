@@ -58,7 +58,7 @@ Stop babbeling, Arduino! What does this even mean?
 | Library Version (initial handshake)  | `2124 - 2199`    | `2124 + VERSION`       |
 | Sensor ID                            | `1024 - 1087`    | `1024 + SENSOR_ID`     |
 | Data Type                            | `1088 - 1097`    | `1088 + DATA_TYPE`     |
-| Num of values to be transmitted      | `1098 - 2122`    | `   0 + DATA_COUNT`    |
+| Num of values to be transmitted      | `1098 - 2122`    | `1098 + DATA_COUNT`    |
 | Data                                 | `0    - 1023`    | `   0 + DATA`          |
 | End transmission                     | `2123`           | `2123`                 |
 
