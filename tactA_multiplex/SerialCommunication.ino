@@ -1,6 +1,6 @@
 /**
  * Tact example for handling capacitive sensing.
- * Copyright (C) 2013, Jack Rusher, Tomek Ness and Studio NAND
+ * Copyright (C) 2013, Tomek Ness, Jack Rusher and Studio NAND
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,20 +21,8 @@
  * This example is inspired by Mads Hobye's instructables tutorial
  * http://www.instructables.com/id/Touche-for-Arduino-Advanced-touch-sensing/
  */
-
-/**
- * Function for handling incoming serial events.
- * This includes parsing and respoding of/to commands 
- * and switching to different operating modes. Those 
- * are represented by "commandMode", which can be 0, 1 
- * or 2. Both last ones stand for getter and setter. 
- * Threreby spectrum start index and length can be 
- * easily modified and adjusted.
- *
- * @param in the byte to process.
- * @return void
- */
-void serialEvent (const byte inByte) {
+ 
+void serialEvent (byte inByte) {
   
   switch (inByte) {
     case '\n':
@@ -50,15 +38,22 @@ void serialEvent (const byte inByte) {
     // If none of the above
     default:
       // Test if byte represents a digit and 
-      // update exisitng int value
+      // update existing int value
       if (inByte > 47 && inByte < 58) {
         cmdBuffer[cmdIndex] = cmdBuffer[cmdIndex] * 10 + (int) (inByte - 48);
-      // If in range from A-Z
-      }else if (inByte > 64 && inByte < 91) {
+      // If in range from A-Z or a-z
+      } else if ( inByte > 64 && inByte < 123 ) {
+        
+        // check if inByte in lowercase range (97-122)
+        if( inByte > 96) {
+          // transform to uppercase
+          inByte -= 32;
+        }
+
         // Set command key/name.
         cmdKey = inByte;
         
-        if (inByte == 'G') {
+        if (inByte == 'S' || inByte == 'P' || inByte == 'B') {
           state = STATE_RECEIVE_CMD;
         }
         
@@ -69,7 +64,7 @@ void serialEvent (const byte inByte) {
         cmdBuffer[1] = 0;
         cmdBuffer[2] = 0;
         cmdBuffer[3] = 0;
-      }else{
+      } else{
         // ERROR - unexpected token in parameter stream
       }
       break;
@@ -83,3 +78,4 @@ void sendInt (int value) {
   Serial.write (byte(lowByte(value)));   // send Low Byte  
   Serial.write (byte(highByte(value)));  // send high Byte   
 }
+
