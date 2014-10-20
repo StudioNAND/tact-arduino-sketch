@@ -145,7 +145,7 @@ void loop() {
           sendInt(bias);
           break;
 
-        case STATE_TRASMIT_BIAS_PEAK:
+        case STATE_TRANSMIT_BIAS_PEAK:
           // send data_type for data to be transmitted
           sendInt( 1088 + 3 );
           // Tell client how many data values are going to be sent
