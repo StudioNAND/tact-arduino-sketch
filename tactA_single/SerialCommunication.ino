@@ -53,7 +53,7 @@ void serialEvent (byte inByte) {
         // Set command key/name.
         cmdKey = inByte;
         
-        if (inByte == 'S' || inByte == 'P' || inByte == 'B') {
+        if (inByte == 'S' || inByte == 'P' || inByte == 'B' || inByte == 'X') {
           state = STATE_RECEIVE_CMD;
         }
         

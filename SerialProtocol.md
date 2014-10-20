@@ -64,9 +64,10 @@ Stop babbeling, Arduino! What does this even mean?
 
 
 ### Data Types
-| Data Type | Processing Key | Arduino Data Type |
-| :-------- | :---------     | :---------------- |
-| Spectrum  | S              | 0                 |
-| Peak      | P              | 1                 |
-| Bias      | B              | 2                 |
+| Data Type   | Processing Key | Arduino Data Type |
+| :---------- | :---------     | :---------------- |
+| Spectrum    | S              | 0                 |
+| Peak        | P              | 1                 |
+| Bias        | B              | 2                 |
+| Peak & Bias | X              | 3                 |
 

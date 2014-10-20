@@ -44,6 +44,7 @@
 #define STATE_TRANSMIT_SPECTRUM 2
 #define STATE_TRANSMIT_PEAK 3
 #define STATE_TRANSMIT_BIAS 4
+#define STATE_TRANSMIT_BIAS_PEAK 5
 
 // Application state
 int state = STATE_IDLE;
@@ -144,6 +145,16 @@ void loop() {
           sendInt(bias);
           break;
 
+        case STATE_TRASMIT_BIAS_PEAK:
+          // send data_type for data to be transmitted
+          sendInt( 1088 + 3 );
+          // Tell client how many data values are going to be sent
+          sendInt (1098 + 2);
+          // send bias
+          sendInt(bias);
+          sendInt(peak);
+          break;
+
         default:
           ; // do nothing
     }
@@ -177,6 +188,10 @@ void execute () {
 
     case 'B':
       state = STATE_TRANSMIT_BIAS;
+      break;
+
+    case 'X':
+      state = STATE_TRANSMIT_BIAS_PEAK;
       break;
 
     case 'V':
