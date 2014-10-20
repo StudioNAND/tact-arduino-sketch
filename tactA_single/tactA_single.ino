@@ -79,7 +79,7 @@ void loop() {
 
   // If signal data has been requested 
   // by the client (i.e. Processing) ...
-  if (state == STATE_TRANSMIT_SPECTRUM || state == STATE_TRANSMIT_PEAK || state == STATE_TRANSMIT_BIAS) {
+  if (state == STATE_TRANSMIT_SPECTRUM || state == STATE_TRANSMIT_PEAK || state == STATE_TRANSMIT_BIAS || state == STATE_TRANSMIT_BIAS_PEAK ) {
     // Declare sensor value buffer 
     int results[cmdBuffer[CMD_BUFFER_INDEX_COUNT]];
     // Declare peak and bias vars
