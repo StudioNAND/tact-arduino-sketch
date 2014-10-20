@@ -21,53 +21,55 @@
  * This example is inspired by Mads Hobye's instructables tutorial
  * http://www.instructables.com/id/Touche-for-Arduino-Advanced-touch-sensing/
  */
- 
-void serialEvent (byte inByte) {
-  
-  switch (inByte) {
-    case '\n':
-      // Process command
-      execute();
-      break;
-    case CMD_SEPARATOR:
-      // If token is command-separator: then increment 
-      // command-index to address the next field of 
-      // the command-buffer
-      cmdIndex++;
-      break;
-    // If none of the above
-    default:
-      // Test if byte represents a digit and 
-      // update existing int value
-      if (inByte > 47 && inByte < 58) {
-        cmdBuffer[cmdIndex] = cmdBuffer[cmdIndex] * 10 + (int) (inByte - 48);
-      // If in range from A-Z or a-z
-      } else if ( inByte > 64 && inByte < 123 ) {
-        
-        // check if inByte in lowercase range (97-122)
-        if( inByte > 96) {
-          // transform to uppercase
-          inByte -= 32;
-        }
 
-        // Set command key/name.
-        cmdKey = inByte;
-        
-        if (inByte == 'S' || inByte == 'P' || inByte == 'B' || inByte == 'X') {
-          state = STATE_RECEIVE_CMD;
-        }
-        
-        // reset the command-index to -1
-        cmdIndex = -1;
-        // clear list of command parameters
-        cmdBuffer[0] = 0;
-        cmdBuffer[1] = 0;
-        cmdBuffer[2] = 0;
-        cmdBuffer[3] = 0;
-      } else{
-        // ERROR - unexpected token in parameter stream
+void serialEvent (byte inByte) {
+
+  switch (inByte) {
+  case '\n':
+    // Process command
+    execute();
+    break;
+  case CMD_SEPARATOR:
+    // If token is command-separator: then increment 
+    // command-index to address the next field of 
+    // the command-buffer
+    cmdIndex++;
+    break;
+    // If none of the above
+  default:
+    // Test if byte represents a digit and 
+    // update existing int value
+    if (inByte > 47 && inByte < 58) {
+      cmdBuffer[cmdIndex] = cmdBuffer[cmdIndex] * 10 + (int) (inByte - 48);
+      // If in range from A-Z or a-z
+    } 
+    else if ( inByte > 64 && inByte < 123 ) {
+
+      // check if inByte in lowercase range (97-122)
+      if( inByte > 96) {
+        // transform to uppercase
+        inByte -= 32;
       }
-      break;
+
+      // Set command key/name.
+      cmdKey = inByte;
+
+      if (inByte == 'S' || inByte == 'P' || inByte == 'B' || inByte == 'X') {
+        state = STATE_RECEIVE_CMD;
+      }
+
+      // reset the command-index to -1
+      cmdIndex = -1;
+      // clear list of command parameters
+      cmdBuffer[0] = 0;
+      cmdBuffer[1] = 0;
+      cmdBuffer[2] = 0;
+      cmdBuffer[3] = 0;
+    } 
+    else{
+      // ERROR - unexpected token in parameter stream
+    }
+    break;
   }
 }
 
@@ -78,4 +80,5 @@ void sendInt (int value) {
   Serial.write (byte(lowByte(value)));   // send Low Byte  
   Serial.write (byte(highByte(value)));  // send high Byte   
 }
+
 

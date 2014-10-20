@@ -114,62 +114,62 @@ void loop() {
 
     // Send data depending on what is requested
     switch (state) {
-        // send spectrum
-        case STATE_TRANSMIT_SPECTRUM:
-          // send data_type for data to be transmitted
-          sendInt( 1088 + 0 );
-          // Tell client how many data values are going to be sent
-          sendInt (1098 + cmdBuffer[CMD_BUFFER_INDEX_COUNT]);
+      // send spectrum
+    case STATE_TRANSMIT_SPECTRUM:
+      // send data_type for data to be transmitted
+      sendInt( 1088 + 0 );
+      // Tell client how many data values are going to be sent
+      sendInt (1098 + cmdBuffer[CMD_BUFFER_INDEX_COUNT]);
 
-          // Go! Send signal spectrum ...
-          for (int x=0; x < cmdBuffer[CMD_BUFFER_INDEX_COUNT]; x++) {
-            sendInt (results[x]);
-          }
-          break;
+      // Go! Send signal spectrum ...
+      for (int x=0; x < cmdBuffer[CMD_BUFFER_INDEX_COUNT]; x++) {
+        sendInt (results[x]);
+      }
+      break;
 
-        case STATE_TRANSMIT_PEAK:
-          // send data_type for data to be transmitted
-          sendInt( 1088 + 1 );
-          // Tell client how many data values are going to be sent
-          sendInt (1098 + 1);
-          // send peak
-          sendInt(peak);
-          break;
+    case STATE_TRANSMIT_PEAK:
+      // send data_type for data to be transmitted
+      sendInt( 1088 + 1 );
+      // Tell client how many data values are going to be sent
+      sendInt (1098 + 1);
+      // send peak
+      sendInt(peak);
+      break;
 
-        case STATE_TRANSMIT_BIAS:
-          // send data_type for data to be transmitted
-          sendInt( 1088 + 2 );
-          // Tell client how many data values are going to be sent
-          sendInt (1098 + 1);
-          // send bias
-          sendInt(bias);
-          break;
+    case STATE_TRANSMIT_BIAS:
+      // send data_type for data to be transmitted
+      sendInt( 1088 + 2 );
+      // Tell client how many data values are going to be sent
+      sendInt (1098 + 1);
+      // send bias
+      sendInt(bias);
+      break;
 
-        case STATE_TRANSMIT_BIAS_PEAK:
-          // send data_type for data to be transmitted
-          sendInt( 1088 + 3 );
-          // Tell client how many data values are going to be sent
-          sendInt (1098 + 2);
-          // send bias
-          sendInt(bias);
-          sendInt(peak);
-          break;
+    case STATE_TRANSMIT_BIAS_PEAK:
+      // send data_type for data to be transmitted
+      sendInt( 1088 + 3 );
+      // Tell client how many data values are going to be sent
+      sendInt (1098 + 2);
+      // send bias
+      sendInt(bias);
+      sendInt(peak);
+      break;
 
-        default:
-          ; // do nothing
+    default:
+      ; // do nothing
     }
 
     // Confirm that signal spectrum 
     // has been delivered, done!
     sendInt (2123);
-    
+
     // Toggle pin 9 after each 
     // sweep (good for scope)
     TOG (PORTB, 0);
-    
+
     state = STATE_IDLE;
   }
-  
+
 }
 
 /**
@@ -178,25 +178,26 @@ void loop() {
  */
 void execute () {
   switch (cmdKey) {
-    case 'S':
-      state = STATE_TRANSMIT_SPECTRUM;
-      break;
+  case 'S':
+    state = STATE_TRANSMIT_SPECTRUM;
+    break;
 
-    case 'P':
-      state = STATE_TRANSMIT_PEAK;
-      break;
+  case 'P':
+    state = STATE_TRANSMIT_PEAK;
+    break;
 
-    case 'B':
-      state = STATE_TRANSMIT_BIAS;
-      break;
+  case 'B':
+    state = STATE_TRANSMIT_BIAS;
+    break;
 
-    case 'X':
-      state = STATE_TRANSMIT_BIAS_PEAK;
-      break;
+  case 'X':
+    state = STATE_TRANSMIT_BIAS_PEAK;
+    break;
 
-    case 'V':
-      sendInt (2124 + VERSION);
-      break;
+  case 'V':
+    sendInt (2124 + VERSION);
+    break;
   }
 }
+
 
